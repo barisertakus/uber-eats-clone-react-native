@@ -1,9 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Ionicons } from "react-native-vector-icons";
+import { Ionicons,AntDesign } from "react-native-vector-icons";
 
 const SearchBar = () => {
+  const searchLeft = (
+    <View style={styles.searchLeft}>
+      <Ionicons name="location-sharp" size={24} />
+    </View>
+  );
+
+  const searchRight = (
+  <View style={styles.searchRight}>
+    <AntDesign name="clockcircle" size={11} style={styles.searchRightIcon} />
+    <Text>Search</Text>
+  </View>);
   return (
     <View style={styles.searchBar}>
       <GooglePlacesAutocomplete
@@ -23,11 +34,8 @@ const SearchBar = () => {
           },
         }}
         placeholder="Search"
-        renderLeftButton={() => (
-          <View style={styles.searchLeftBtn}>
-            <Ionicons name="location-sharp" size={24} />
-          </View>
-        )}
+        renderLeftButton={() => searchLeft}
+        renderRightButton={() => searchRight}
       />
     </View>
   );
@@ -40,7 +48,18 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
   },
-  searchLeftBtn:{
-    marginLeft: 10
+  searchLeft: {
+    marginLeft: 10,
+  },
+  searchRight:{
+    flexDirection: "row",
+    marginRight: 8,
+    backgroundColor: "white",
+    padding: 9,
+    borderRadius: 30,
+    alignItems: "center",
+  },
+  searchRightIcon:{
+    marginRight: 6,
   }
 });
