@@ -1,11 +1,30 @@
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import Categories from "../components/Categories";
 import HeaderTabs from "../components/Header/HeaderTabs";
 import RestaurantItem from "../components/Restaurant/RestaurantItem";
 import SearchBar from "../components/SearchBar";
+import axios from "axios";
+
+const YELP_API_KEY =
+  "vDWTYrELOQZFM9PoN0ZvtcJg0R5z1GTpiWuXVEyYyvSumHSN0LkzozYegJO1Z1vyStcAaV_0Vh9CfOaiuPXU7FM_BDOLNnopewrHZqRoZqw11NNl1qfmfp0YE7GKYXYx";
 
 const Home = () => {
+  const apiOptions = {
+    headers: {
+      Authorization: "Bearer " + YELP_API_KEY,
+    },
+  };
+
+  const getRestaurantDataFromYelp = () => {
+    axios
+      .get(
+        "https://api.yelp.com/v3/businesses/search?term=restaurants&location=SanDiego",
+        apiOptions
+      )
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tabContainer}>
@@ -14,7 +33,7 @@ const Home = () => {
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
-        <RestaurantItem />
+        <RestaurantItem restaurantData={restaurantData} />
       </ScrollView>
     </SafeAreaView>
   );
