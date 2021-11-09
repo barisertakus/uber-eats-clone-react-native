@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   button:{
     position: "absolute",
-    right: 15,
-    top: 15
+    right: 25,
+    top: 25
   }
 })

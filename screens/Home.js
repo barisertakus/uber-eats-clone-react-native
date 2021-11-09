@@ -19,7 +19,7 @@ const Home = () => {
   const getRestaurantDataFromYelp = () => {
     axios
       .get(
-        "https://api.yelp.com/v3/businesses/search?term=restaurants&location=SanDiego",
+        "https://api.yelp.com/v3/businesses/search?term=restaurants&location=LosAngeles",
         apiOptions
       )
       .then((response) => setRestaurantData(response.data))
