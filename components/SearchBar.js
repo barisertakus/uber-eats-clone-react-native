@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-import { Ionicons,AntDesign } from "react-native-vector-icons";
+import { Ionicons, AntDesign } from "react-native-vector-icons";
 
 const SearchBar = () => {
   const searchLeft = (
@@ -11,13 +11,20 @@ const SearchBar = () => {
   );
 
   const searchRight = (
-  <View style={styles.searchRight}>
-    <AntDesign name="clockcircle" size={11} style={styles.searchRightIcon} />
-    <Text>Search</Text>
-  </View>);
+    <View style={styles.searchRight}>
+      <AntDesign name="clockcircle" size={11} style={styles.searchRightIcon} />
+      <Text>Search</Text>
+    </View>
+  );
+
+  const googlePlacesKey = "";
   return (
     <View style={styles.searchBar}>
       <GooglePlacesAutocomplete
+        query={{ key: googlePlacesKey }}
+        onPress={(data, details = null) => {
+          console.log(data.description);
+        }}
         styles={{
           textInput: {
             backgroundColor: "#eee",
@@ -51,7 +58,7 @@ const styles = StyleSheet.create({
   searchLeft: {
     marginLeft: 10,
   },
-  searchRight:{
+  searchRight: {
     flexDirection: "row",
     marginRight: 8,
     backgroundColor: "white",
@@ -59,7 +66,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
   },
-  searchRightIcon:{
+  searchRightIcon: {
     marginRight: 6,
-  }
+  },
 });
