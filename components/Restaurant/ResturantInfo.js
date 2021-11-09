@@ -1,16 +1,16 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const ResturantInfo = () => {
+const ResturantInfo = ({name,rating}) => {
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.header}>Burger King</Text>
+        <Text style={styles.header}>{name}</Text>
         <Text style={styles.time}>30-40 • min</Text>
       </View>
 
       <View style={styles.point}>
-        <Text>4.5</Text>
+        <Text>{rating}</Text>
       </View>
     </View>
   );

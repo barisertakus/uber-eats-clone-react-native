@@ -2,12 +2,12 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { MaterialCommunityIcons } from "react-native-vector-icons"
 
-const ResturantImage = () => {
+const ResturantImage = ({image}) => {
   return (
     <>
     <Image
       source={{
-        uri: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
+        uri: image
       }}
       style={styles.image}
     />
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   button:{
     position: "absolute",
-    right: 30,
-    top: 30
+    right: 15,
+    top: 15
   }
 })
