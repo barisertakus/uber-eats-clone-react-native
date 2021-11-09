@@ -22,9 +22,16 @@ const Home = () => {
         "https://api.yelp.com/v3/businesses/search?term=restaurants&location=SanDiego",
         apiOptions
       )
-      .then((response) => console.log(response.data))
+      .then((response) => setRestaurantData(response.data))
       .catch((error) => console.log(error));
   };
+
+  const [restaurantData, setRestaurantData] = useState([]);
+
+  useEffect(() => {
+    getRestaurantDataFromYelp();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tabContainer}>

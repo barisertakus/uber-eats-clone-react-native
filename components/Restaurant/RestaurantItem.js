@@ -3,26 +3,32 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import ResturantImage from "./ResturantImage";
 import ResturantInfo from "./ResturantInfo";
 
-const RestaurantItem = () => {
+const RestaurantItem = ({ restaurantData }) => {
+  const restaurants = restaurantData ? restaurantData.businesses : [];
+
   return (
-    <TouchableOpacity style={styles.button} activeOpacity={0.7} >
-      <View style={styles.container}>
-        <ResturantImage />
-        <ResturantInfo />
-      </View>
-    </TouchableOpacity>
+    <View style={styles.container}>
+      {restaurants.map((restaurant) => (
+        <TouchableOpacity activeOpacity={0.7}>
+          <View style={styles.restaurantCard} key={restaurant.id}>
+            <ResturantImage image={restaurant.image_url} />
+            <ResturantInfo name={restaurant.name} rating={restaurant.rating} />
+          </View>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 };
 
 export default RestaurantItem;
 
 const styles = StyleSheet.create({
-  container: {
+  restaurantCard: {
     marginTop: 10,
     padding: 15,
     backgroundColor: "white",
   },
-  button:{
-    marginBottom: 30
-  }
+  container: {
+    marginBottom: 30,
+  },
 });
