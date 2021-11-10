@@ -5,6 +5,7 @@ import HeaderTabs from "../components/Header/HeaderTabs";
 import RestaurantItem from "../components/Restaurant/RestaurantItem";
 import SearchBar from "../components/SearchBar";
 import axios from "axios";
+import { Divider } from "react-native-elements";
 
 const YELP_API_KEY =
   "vDWTYrELOQZFM9PoN0ZvtcJg0R5z1GTpiWuXVEyYyvSumHSN0LkzozYegJO1Z1vyStcAaV_0Vh9CfOaiuPXU7FM_BDOLNnopewrHZqRoZqw11NNl1qfmfp0YE7GKYXYx";
@@ -55,6 +56,7 @@ const Home = () => {
         <Categories />
         <RestaurantItem restaurantData={restaurantData} />
       </ScrollView>
+      <Divider width={1} />
     </SafeAreaView>
   );
 };
