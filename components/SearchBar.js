@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Ionicons, AntDesign } from "react-native-vector-icons";
 
-const SearchBar = () => {
+const googlePlacesKey = "";
+
+const SearchBar = ({changeCity}) => {
   const searchLeft = (
     <View style={styles.searchLeft}>
       <Ionicons name="location-sharp" size={24} />
@@ -17,13 +19,13 @@ const SearchBar = () => {
     </View>
   );
 
-  const googlePlacesKey = "";
   return (
     <View style={styles.searchBar}>
       <GooglePlacesAutocomplete
         query={{ key: googlePlacesKey }}
         onPress={(data, details = null) => {
-          console.log(data.description);
+          const city = data.description.split(',')[0]
+          changeCity(city);
         }}
         styles={{
           textInput: {

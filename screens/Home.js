@@ -10,33 +10,38 @@ const YELP_API_KEY =
   "vDWTYrELOQZFM9PoN0ZvtcJg0R5z1GTpiWuXVEyYyvSumHSN0LkzozYegJO1Z1vyStcAaV_0Vh9CfOaiuPXU7FM_BDOLNnopewrHZqRoZqw11NNl1qfmfp0YE7GKYXYx";
 
 const Home = () => {
+  const [city, setCity] = useState("Los Angeles");
+  const [restaurantData, setRestaurantData] = useState([]);
+
+  const changeCity = (newCity) => {
+    setCity(newCity);
+  }
+
   const apiOptions = {
     headers: {
       Authorization: "Bearer " + YELP_API_KEY,
     },
   };
-
+  
   const getRestaurantDataFromYelp = () => {
     axios
       .get(
-        "https://api.yelp.com/v3/businesses/search?term=restaurants&location=LosAngeles",
+        `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`,
         apiOptions
       )
       .then((response) => setRestaurantData(response.data))
       .catch((error) => console.log(error));
   };
 
-  const [restaurantData, setRestaurantData] = useState([]);
-
   useEffect(() => {
     getRestaurantDataFromYelp();
-  }, []);
+  }, [city]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.tabContainer}>
         <HeaderTabs />
-        <SearchBar />
+        <SearchBar changeCity={changeCity} />
       </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Categories />
