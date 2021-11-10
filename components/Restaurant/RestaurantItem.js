@@ -4,7 +4,7 @@ import ResturantImage from "./ResturantImage";
 import ResturantInfo from "./ResturantInfo";
 
 const RestaurantItem = ({ restaurantData }) => {
-  const restaurants = restaurantData?.businesses || []
+  const restaurants = restaurantData || []
 
   return (
     <View style={styles.container}>

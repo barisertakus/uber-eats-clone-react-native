@@ -1,33 +1,33 @@
-import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { MaterialCommunityIcons } from "react-native-vector-icons"
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { MaterialCommunityIcons } from "react-native-vector-icons";
 
-const ResturantImage = ({image}) => {
+const ResturantImage = ({ image }) => {
   return (
     <>
-    <Image
-      source={{
-        uri: image || undefined
-      }}
-      style={styles.image}
-    />
-    <TouchableOpacity style={styles.button}>
-      <MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
-    </TouchableOpacity>
+      <Image
+        source={{
+          uri: image || undefined,
+        }}
+        style={styles.image}
+      />
+      <TouchableOpacity style={styles.button}>
+        <MaterialCommunityIcons name="heart-outline" size={25} color="#fff" />
+      </TouchableOpacity>
     </>
   );
-}
+};
 
-export default ResturantImage
+export default ResturantImage;
 
 const styles = StyleSheet.create({
-  image:{
+  image: {
     width: "100%",
-    height: 180
+    height: 180,
   },
-  button:{
+  button: {
     position: "absolute",
     right: 25,
-    top: 25
-  }
-})
+    top: 25,
+  },
+});
