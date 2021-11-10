@@ -7,7 +7,7 @@ const ResturantImage = ({image}) => {
     <>
     <Image
       source={{
-        uri: image
+        uri: image || undefined
       }}
       style={styles.image}
     />
