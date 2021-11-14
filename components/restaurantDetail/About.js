@@ -4,16 +4,26 @@ import RestaurantDescription from "./RestaurantDescription";
 import RestaurantImage from "./RestaurantImage";
 import RestaurantTitle from "./RestaurantTitle";
 
-const image =
-  "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80";
-const title = "Burger King";
-const description = "Burger • Burger Food • 10$ • 5⭐ (300+)";
+const About = ({ route }) => {
+  const { name, image, price, reviews, rating, categories } =
+    route.params;
 
-const About = () => {
+  const formattedCategories = categories
+    .map((category) => category.title)
+    .join(" • ");
+
+  const description =
+    formattedCategories +
+    (price ? " • " + price : "") +
+    " • " +
+    rating +
+    " ⭐ " +
+    `(${reviews}+)`;
+
   return (
     <View>
       <RestaurantImage image={image} />
-      <RestaurantTitle title={title} />
+      <RestaurantTitle title={name} />
       <RestaurantDescription description={description} />
     </View>
   );
