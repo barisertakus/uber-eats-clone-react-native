@@ -70,18 +70,29 @@ const foods = [
   },
 ];
 
-const MenuItems = ({restaurantName}) => {
-
+const MenuItems = ({ restaurantName }) => {
   const dispatch = useDispatch();
-  const selectItems = useSelector(state=> state)
+  const cartItems = useSelector(
+    (state) => state.cartReducer.selectedItems.items
+  );
+
+  const isItInCard = (food, cartItems) => {
+    return cartItems.find((item) => item.title === food.title);
+  };
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {foods.map((food, i) => (
         <View key={i}>
           <View style={styles.menuItem}>
-            <BouncyCheckBox iconStyle={styles.checkbox} fillColor="green"
-            onPress={(value)=>dispatch(selectItem(food, restaurantName, value))} />
+            <BouncyCheckBox
+              iconStyle={styles.checkbox}
+              fillColor="green"
+              onPress={(value) =>
+                dispatch(selectItem(food, restaurantName, value))
+              }
+              isChecked={isItInCard(food, cartItems)}
+            />
             <FoodInfo food={food} />
             <FoodImage food={food} />
           </View>
