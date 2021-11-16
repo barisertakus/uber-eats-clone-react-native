@@ -12,7 +12,7 @@ const RestaurantDetail = ({route, navigation}) => {
     <View style={styles.container}>
       <About route={route} />
       <Divider style={styles.divider} width={1.8} />
-      <MenuItems />
+      <MenuItems restaurantName={name} />
       <ViewCart navigation={navigation} restaurantName={name} />
     </View>
   )

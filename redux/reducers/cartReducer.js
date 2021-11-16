@@ -1,8 +1,8 @@
-let defaultState = {
+let initialState = {
   selectedItems: { items: [], restaurantName: "" },
 };
 
-let cartReducer = (state = defaultState, action) => {
+let cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ADD_TO_CART": {
       let newState = { ...state };
@@ -10,8 +10,17 @@ let cartReducer = (state = defaultState, action) => {
         items: [...newState.selectedItems.items, action.payload],
         restaurantName: action.payload.restaurantName,
       };
+      return newState;
+    }
 
-      console.log(newState, "->");
+    case "REMOVE_FROM_CART": {
+      let newState = { ...state }
+      newState.selectedItems = {
+        items: [
+          ...state.selectedItems.items.filter((item) => item.title !== action.payload.title)
+        ],
+        restaurantName : action.payload.restaurantName,
+      }
       return newState;
     }
 
