@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
+import { db } from "../../firebase";
+import { addDoc, collection, getDoc, serverTimestamp } from "@firebase/firestore";
 import OrderItem from "./OrderItem";
 
 const ViewCart = () => {
@@ -16,6 +18,16 @@ const ViewCart = () => {
     style: "currency",
     currency: "USD",
   });
+
+  const saveOrder = async () => {
+    const orderRef = collection(db, "orders");
+    const docRef = await addDoc(orderRef,{
+      items: items,
+      restaurantName: restaurantName,
+      createdAt: serverTimestamp(),
+    });
+    setModalVisible(false);
+  }
 
   const checkoutModalContent = () => {
     return (
@@ -33,7 +45,7 @@ const ViewCart = () => {
             <View style={styles.checkoutContainer}>
               <TouchableOpacity
                 style={styles.checkoutButton}
-                onPress={() => setModalVisible(false)}
+                onPress={()=>saveOrder()}
               >
                 <Text style={styles.checkoutText}>Checkout</Text>
                 <Text style={styles.checkoutTotal}>{total ? totalPrice : ""}</Text>
