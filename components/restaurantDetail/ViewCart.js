@@ -1,9 +1,13 @@
-import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React, { useState } from "react";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
+import OrderItem from "./OrderItem";
 
 const ViewCart = () => {
-  const items = useSelector((state) => state.cartReducer.selectedItems.items);
+  const [modalVisible, setModalVisible] = useState(false);
+  const { items, restaurantName } = useSelector(
+    (state) => state.cartReducer.selectedItems
+  );
   const total = items
     .map((item) => Number(item.price.replace("$", "")))
     .reduce((prev, curr) => prev + curr, 0);
@@ -13,17 +17,60 @@ const ViewCart = () => {
     currency: "USD",
   });
 
-  return total ? (
-    <View style={styles.container}>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.text}>View Cart</Text>
-          <Text style={styles.textPrice}>{totalPrice}</Text>
-        </TouchableOpacity>
-      </View>
+  const checkoutModalContent = () => {
+    return (
+      <>
+        <View style={styles.modalContainer}>
+          <View style={styles.modalCheckoutContainer}>
+            <Text style={styles.restaurantText}>{restaurantName}</Text>
+            {items.map((item, i) => (
+              <OrderItem key={i} item={item} />
+            ))}
+            <View style={styles.subTotalContainer}>
+              <Text style={styles.subTotalText}>Subtotal</Text>
+              <Text style={styles.subTotalPrice}>{totalPrice}</Text>
+            </View>
+            <View style={styles.checkoutContainer}>
+              <TouchableOpacity
+                style={styles.checkoutButton}
+                onPress={() => setModalVisible(false)}
+              >
+                <Text style={styles.checkoutText}>Checkout</Text>
+                <Text style={styles.checkoutTotal}>{total ? totalPrice : ""}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </>
+    );
+  };
+
+  return (
+    <View>
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        {checkoutModalContent()}
+      </Modal>
+      {total ? (
+        <View style={styles.container}>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setModalVisible(true)}
+            >
+              <Text style={styles.text}>View Cart</Text>
+              <Text style={styles.textPrice}>{totalPrice}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <></>
+      )}
     </View>
-  ) : (
-    <></>
   );
 };
 
@@ -63,5 +110,61 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: 300,
     position: "relative",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(0,0,0,0.7)",
+  },
+  modalCheckoutContainer: {
+    backgroundColor: "white",
+    padding: 16,
+    height: 500,
+    borderWidth: 1,
+  },
+  restaurantText: {
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  subTotalContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 15,
+    marginLeft: 20,
+  },
+  subTotalText: {
+    textAlign: "center",
+    fontWeight: "600",
+    fontSize: 15,
+    marginBottom: 10,
+  },
+  subTotalPrice: {
+    marginRight: 23,
+  },
+  checkoutContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  checkoutButton: {
+    marginTop: 20,
+    backgroundColor: "black",
+    alignItems: "center",
+    padding: 13,
+    borderRadius: 30,
+    width: 300,
+    position: "relative",
+  },
+  checkoutText: {
+    color: "white",
+    fontSize: 20,
+  },
+  checkoutTotal:{
+    color: "white",
+    position: "absolute",
+    right: 20,
+    top: 16,
+    fontSize: 15
   },
 });
