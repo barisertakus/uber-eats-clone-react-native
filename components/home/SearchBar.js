@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { Ionicons, AntDesign } from "react-native-vector-icons";
-import { googleApiKey } from "../../helpers/googleApi"
+import { googleApiKey } from "../../googleApi"
 
 const googlePlacesKey = googleApiKey;
 
