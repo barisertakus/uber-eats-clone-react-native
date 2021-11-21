@@ -25,7 +25,9 @@ const ViewCart = ({ navigation }) => {
   const totalPrice = total.toLocaleString("en", {
     style: "currency",
     currency: "USD",
+    currencyDisplay: "symbol"
   });
+
 
   const saveOrder = async () => {
     setLoading(true);
