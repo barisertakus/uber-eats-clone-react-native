@@ -53,7 +53,7 @@ const OrderCompleted = ({ route }) => {
           Your order at {restaurantName} has been placed for {totalPrice}
         </Text>
         <ScrollView style={styles.itemsContainer}>
-          <MenuItems foods={lastOrder.items} hideCheckbox />
+          <MenuItems foods={lastOrder.items} hideCheckbox marginLeft={8}/>
         </ScrollView>
 
         <LottieView
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemsContainer: {
-    maxHeight: "45%",
+    maxHeight: "55%",
   },
 });

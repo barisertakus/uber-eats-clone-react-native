@@ -9,9 +9,12 @@ import {
   serverTimestamp,
 } from "@firebase/firestore";
 import OrderItem from "./OrderItem";
+import LottieView from "lottie-react-native";
 
 const ViewCart = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
   );
@@ -24,18 +27,23 @@ const ViewCart = ({ navigation }) => {
     currency: "USD",
   });
 
-  const saveOrder = () => {
+  const saveOrder = async () => {
+    setLoading(true);
+    setModalVisible(false);
     const orderRef = collection(db, "orders");
-    const docRef = addDoc(orderRef, {
+    const docRef = await addDoc(orderRef, {
       items: items,
       restaurantName: restaurantName,
       createdAt: serverTimestamp(),
     });
 
-    setModalVisible(false);
-    navigation.navigate("orderCompleted",{
-      restaurantName, totalPrice
-    });
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate("orderCompleted", {
+        restaurantName,
+        totalPrice,
+      });
+    }, 2500);
   };
 
   const checkoutModalContent = () => {
@@ -69,7 +77,7 @@ const ViewCart = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <>
       <Modal
         animationType="slide"
         visible={modalVisible}
@@ -93,7 +101,19 @@ const ViewCart = ({ navigation }) => {
       ) : (
         <></>
       )}
-    </View>
+      {loading ? (
+        <View style={styles.loadingView}>
+          <LottieView
+            style={styles.loadingAnimation}
+            source={require("../../assets/animations/scanner.json")}
+            autoPlay
+            speed={3}
+          />
+        </View>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
@@ -190,4 +210,16 @@ const styles = StyleSheet.create({
     top: 16,
     fontSize: 15,
   },
+  loadingView: {
+    backgroundColor: "black",
+    position: "absolute",
+    opacity: 0.6,
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    width: "100%"
+  },
+  loadingAnimation:{
+    height: 200,
+  }
 });

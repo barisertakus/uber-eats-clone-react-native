@@ -7,7 +7,7 @@ import BouncyCheckBox from "react-native-bouncy-checkbox";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItem } from "../../redux/actions/cartAction";
 
-const MenuItems = ({ restaurantName, foods, hideCheckbox }) => {
+const MenuItems = ({ restaurantName, foods, hideCheckbox, marginLeft }) => {
   const dispatch = useDispatch();
   const cartItems = useSelector(
     (state) => state.cartReducer.selectedItems.items
@@ -35,7 +35,7 @@ const MenuItems = ({ restaurantName, foods, hideCheckbox }) => {
               <></>
             )}
             <FoodInfo food={food} />
-            <FoodImage food={food} />
+            <FoodImage food={food} marginLeft={marginLeft} />
           </View>
           <Divider width={0.5} orientation="vertical" style={styles.divider} />
         </View>
