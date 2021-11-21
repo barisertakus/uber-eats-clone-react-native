@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import LottieView from "lottie-react-native";
 import { db } from "../firebase";
 import {
@@ -12,7 +12,7 @@ import {
   query,
 } from "@firebase/firestore";
 import MenuItems from "../components/restaurantDetail/MenuItems";
-import { ScrollView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context"
 
 const OrderCompleted = ({ route }) => {
   const { restaurantName, totalPrice } = route.params;
@@ -92,6 +92,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   itemsContainer: {
-    maxHeight: "55%",
+    maxHeight: "42%",
   },
 });
