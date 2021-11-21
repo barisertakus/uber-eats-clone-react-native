@@ -2,10 +2,15 @@ import React, { useState } from "react";
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase";
-import { addDoc, collection, getDoc, serverTimestamp } from "@firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDoc,
+  serverTimestamp,
+} from "@firebase/firestore";
 import OrderItem from "./OrderItem";
 
-const ViewCart = () => {
+const ViewCart = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const { items, restaurantName } = useSelector(
     (state) => state.cartReducer.selectedItems
@@ -19,15 +24,19 @@ const ViewCart = () => {
     currency: "USD",
   });
 
-  const saveOrder = async () => {
+  const saveOrder = () => {
     const orderRef = collection(db, "orders");
-    const docRef = await addDoc(orderRef,{
+    const docRef = addDoc(orderRef, {
       items: items,
       restaurantName: restaurantName,
       createdAt: serverTimestamp(),
     });
+
     setModalVisible(false);
-  }
+    navigation.navigate("orderCompleted",{
+      restaurantName, totalPrice
+    });
+  };
 
   const checkoutModalContent = () => {
     return (
@@ -45,10 +54,12 @@ const ViewCart = () => {
             <View style={styles.checkoutContainer}>
               <TouchableOpacity
                 style={styles.checkoutButton}
-                onPress={()=>saveOrder()}
+                onPress={() => saveOrder()}
               >
                 <Text style={styles.checkoutText}>Checkout</Text>
-                <Text style={styles.checkoutTotal}>{total ? totalPrice : ""}</Text>
+                <Text style={styles.checkoutTotal}>
+                  {total ? totalPrice : ""}
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -172,11 +183,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 20,
   },
-  checkoutTotal:{
+  checkoutTotal: {
     color: "white",
     position: "absolute",
     right: 20,
     top: 16,
-    fontSize: 15
+    fontSize: 15,
   },
 });
