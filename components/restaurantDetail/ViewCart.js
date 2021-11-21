@@ -93,7 +93,10 @@ const ViewCart = ({ navigation }) => {
               style={styles.button}
               onPress={() => setModalVisible(true)}
             >
-              <Text style={styles.text}>View Cart</Text>
+              <View style={styles.buttonView}>
+                <Text style={styles.text}>View Cart</Text>
+              </View>
+
               <Text style={styles.textPrice}>{totalPrice}</Text>
             </TouchableOpacity>
           </View>
@@ -142,17 +145,22 @@ const styles = StyleSheet.create({
   textPrice: {
     color: "white",
     fontSize: 20,
+    position: "absolute",
+    right: 20,
+    top: 15
   },
   button: {
     marginTop: 20,
     backgroundColor: "black",
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center",
     padding: 15,
     borderRadius: 30,
     width: 300,
     position: "relative",
+  },
+  buttonView:{
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContainer: {
     flex: 1,

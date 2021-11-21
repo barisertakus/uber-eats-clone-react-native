@@ -15,7 +15,7 @@ export default FoodInfo
 
 const styles = StyleSheet.create({
   container:{
-    width:240,
+    width:220,
     justifyContent: 'space-evenly'
   },
   title:{
